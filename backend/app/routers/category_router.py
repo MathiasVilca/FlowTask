@@ -15,8 +15,8 @@ DbSession = Annotated[Session, Depends(get_db)]
         summary="Listar categorías",
         description="Devuelve todas las categorías disponibles en la base de datos"
         )
-def get_categories(description):
-    service=CategoryService(DbSession)
+def get_categories(db: DbSession):
+    service=CategoryService(db)
     return service.list_categories()
 
 
