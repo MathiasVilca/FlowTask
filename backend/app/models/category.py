@@ -1,9 +1,10 @@
+from __future__ import annotations
 from sqlalchemy import String
 from sqlalchemy.orm import relationship, Mapped, mapped_column
 
 from app.core.database import Base
 
-from __future__ import annotations
+
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
