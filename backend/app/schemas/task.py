@@ -15,7 +15,7 @@ class TaskBase(AppBaseModel):
     )
     status: TaskStatus = Field(
         default=TaskStatus.PENDING,
-        description=f"Estado de la tarea ({TaskStatus.PENDING} por defecto).",
+        description=f"Estado de la tarea ({TaskStatus.PENDING.value} por defecto).",
     )
     due_date: date|None = Field(
         None, description="Fecha de vencimiento de la tarea (Opcional)."

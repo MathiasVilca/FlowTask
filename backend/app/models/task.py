@@ -13,7 +13,7 @@ class Task(Base):
     title: Mapped[str] = mapped_column(String(30))
     description: Mapped[str | None] = mapped_column(String(100))
     status: Mapped[TaskStatus] = mapped_column(
-        String(50), default=TaskStatus.PENDING, index=True
+        String(50), default=TaskStatus.PENDING.value, index=True
     )
     due_date: Mapped[date | None] = mapped_column(Date)
     category_id: Mapped[int] = mapped_column(
