@@ -15,7 +15,7 @@ class Task(Base):
     __tablename__ = "tasks"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    title: Mapped[str] = mapped_column(String(30))
+    title: Mapped[str] = mapped_column(String(150))
     description: Mapped[str | None] = mapped_column(String(100))
     status: Mapped[TaskStatus] = mapped_column(
         String(50), default=TaskStatus.PENDING.value, index=True

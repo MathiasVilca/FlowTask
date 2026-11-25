@@ -8,7 +8,7 @@ from app.schemas.category import CategoryResponse
 
 class TaskBase(AppBaseModel):
     title: str = Field(
-        ..., min_length=1, max_length=30, description="Título de la tarea."
+        ..., min_length=1, max_length=150, description="Título de la tarea."
     )
     description: str|None = Field(
         None, max_length=100, description="Descripción breve de la tarea (Opcional)."
