@@ -1,10 +1,11 @@
 from app.core.enums import TaskStatus
-from pydantic import BaseModel,ConfigDict,Field
+from app.schemas.base import AppBaseModel
+from pydantic import ConfigDict,Field
 from typing import Optional
 from datetime import date
 from app.schemas.category import CategoryResponse
 
-class TaskBase(BaseModel):
+class TaskBase(AppBaseModel):
     title: str = Field(
         ...,
         min_length=1,
@@ -34,7 +35,7 @@ class TaskBase(BaseModel):
 class TaskCreate(TaskBase):
     pass
 
-class TaskUpdate(BaseModel):
+class TaskUpdate(AppBaseModel):
     title: Optional[str] = Field(None,min_length=1,max_length=30)
     description: Optional[str] = Field(None,max_length=100)
     status: Optional[TaskStatus] = Field(None)
