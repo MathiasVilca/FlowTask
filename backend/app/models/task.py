@@ -5,6 +5,11 @@ from datetime import date
 from app.core.database import Base
 from app.core.enums import TaskStatus
 
+from __future__ import annotations
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from app.models.category import Category
 
 class Task(Base):
     __tablename__ = "tasks"
