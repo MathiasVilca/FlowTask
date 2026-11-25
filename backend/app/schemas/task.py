@@ -21,7 +21,7 @@ class TaskBase(AppBaseModel):
         None, description="Fecha de vencimiento de la tarea (Opcional)."
     )
 
-    category_id: int = Field(..., gt=0, description="Catergoría de la tarea.")
+    category_id: int = Field(..., gt=0, description="Categoría de la tarea.")
 
 
 class TaskCreate(TaskBase):
