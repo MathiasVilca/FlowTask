@@ -17,7 +17,7 @@ class TaskRepository:
             stmt=stmt.where(Task.status==task_status)
         if category_id:
             stmt=stmt.where(Task.category_id==category_id)
-        return self.db.scalars(stmt).all()
+        return list(self.db.scalars(stmt).all())
 
     def get_by_id(self,task_id:int) -> Task|None:
         stmt=select(Task).options(joinedload(Task.category)).where(Task.id==task_id)
@@ -51,4 +51,3 @@ class TaskRepository:
     def delete_task(self,db_task:Task) -> None:
         self.db.delete(db_task)
         self.db.commit()
-        pass
