@@ -4,12 +4,12 @@ from app.models.category import Category
 
 
 class CategoryRepository:
-    def __init__(self,db:Session)->None:
-        self.db=db
+    def __init__(self, db: Session) -> None:
+        self.db = db
 
-    def get_all(self)->list[Category]:
-        stmt=select(Category).order_by(Category.id.asc())
+    def get_all(self) -> list[Category]:
+        stmt = select(Category).order_by(Category.id.asc())
         return list(self.db.scalars(stmt).all())
 
-    def get_by_id(self,category_id:int) -> Category|None:
-        return self.db.get(Category,category_id)
+    def get_by_id(self, category_id: int) -> Category | None:
+        return self.db.get(Category, category_id)

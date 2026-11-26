@@ -1,11 +1,10 @@
 from app.schemas.base import AppBaseModel
 from pydantic import ConfigDict, Field
-from typing import Optional
 
 
 class CategoryBase(AppBaseModel):
     name: str = Field(..., min_length=1, max_length=50)
-    description: str|None = Field(None, max_length=100)
+    description: str | None = Field(None, max_length=100)
 
 
 class CategoryResponse(CategoryBase):

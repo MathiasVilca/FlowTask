@@ -1,15 +1,13 @@
-from app.core.database import Base,engine
-from app.models.category import Category
-from app.models.task import Task
-from app.routers import category_router,task_router
+from app.core.database import Base, engine
+from app.routers import category_router, task_router
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 Base.metadata.create_all(bind=engine)
 
-app=FastAPI(title="Flowtask",description="App de administración de tareas")
+app = FastAPI(title="Flowtask", description="App de administración de tareas")
 
-allowed_origins={
+allowed_origins = {
     "http://localhost:4200",
     "http://127.0.0.1:4200",
     "http://localhost",

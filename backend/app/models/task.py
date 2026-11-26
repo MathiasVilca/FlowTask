@@ -11,6 +11,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from app.models.category import Category
 
+
 class Task(Base):
     __tablename__ = "tasks"
 
