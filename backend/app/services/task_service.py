@@ -1,4 +1,5 @@
 from app.repositories.task_repository import TaskRepository
+from app.repositories.category_repository import CategoryRepository
 from app.models.task import Task
 from app.schemas.task import TaskCreate,TaskUpdate
 from sqlalchemy.orm import Session
@@ -8,7 +9,7 @@ from fastapi import HTTPException
 class TaskService:
     def __init__(self,db : Session) -> None:
         self.task_repo=TaskRepository(db)
-        self.cat_repo=TaskRepository(db)
+        self.cat_repo=CategoryRepository(db)
 
     def list_tasks(
             self,
