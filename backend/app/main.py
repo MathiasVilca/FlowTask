@@ -24,3 +24,4 @@ app.add_middleware(
 )
 
 app.include_router(category_router.router)
+app.include_router(task_router.router)
