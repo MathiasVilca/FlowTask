@@ -47,4 +47,8 @@ class TaskRepository:
         self.db.refresh(db_task)
 
         return self.get_by_id(db_task.id)
-    
+
+    def delete_task(self,db_task:Task) -> None:
+        self.db.delete(db_task)
+        self.db.commit()
+        pass
