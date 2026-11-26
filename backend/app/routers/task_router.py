@@ -45,14 +45,14 @@ def post_task(db: DbSession,task_data: TaskCreate):
 
 @router.patch(
     "/{id}",
-    response_model=TaskUpdate,
+    response_model=TaskResponse,
     status_code=200,
     summary="Actualizar tarea de forma parcial",
     description="Actualiza la tarea correspondiente a la id de forma parcial (no todos los campos)",
 )
 @router.put(
     "/{id}",
-    response_model=TaskUpdate,
+    response_model=TaskResponse,
     status_code=200,
     summary="Actualizar tarea de forma completa",
     description="Actualiza la tarea correspondiente a la id de forma completa (todos los campos)",
