@@ -21,7 +21,7 @@ class TaskRepository:
 
     def get_by_id(self,task_id:int) -> Task|None:
         stmt=select(Task).options(joinedload(Task.category)).where(Task.id==task_id)
-        return self.db.scalars(stmt)
+        return self.db.scalar(stmt)
 
     def create_task(self,task_data:TaskCreate) -> Task:
         payload=task_data.model_dump()
