@@ -22,7 +22,7 @@ def get_tasks(db: DbSession,task_status:TaskStatus|None = None,category_id:int|N
 
 @router.post(
         "",
-        response_model=TaskCreate,
+        response_model=TaskResponse,
         status_code=201,
         summary="Añadir tarea",
         description="Añade una tarea nueva a la base de datos, basada en los parámetros dados."
