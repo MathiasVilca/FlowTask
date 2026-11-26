@@ -2,3 +2,6 @@
 *.db
 __pycache__
 test*.py
+.vscode
+.env
+*.sqlite3
