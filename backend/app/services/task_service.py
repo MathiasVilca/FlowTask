@@ -36,7 +36,7 @@ class TaskService:
 
     def update_task(self,task_id:int,task_data:TaskUpdate):
         db_task=self.get_task_by_id(task_id)
-        if not self.cat_repo.get_by_id(task_data.category_id):
+        if task_data.category_id is not None and not self.cat_repo.get_by_id(task_data.category_id):
             raise HTTPException(status_code=404,detail="Categoría inválida")
         else:
             return self.task_repo.create_task(db_task=db_task,task_data=task_data)
