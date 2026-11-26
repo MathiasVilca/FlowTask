@@ -13,17 +13,20 @@ class TaskService:
 
     def list_tasks(
             self,
-            task_id:int|None = None,
             task_status:TaskStatus|None = None,
             category_id:int|None = None
     ) -> list[Task]:
-        if task_id:
-            return self.task_repo.get_by_id(task_id)
+        return self.task_repo.get_all(task_status,category_id)
+
+    def get_task(
+                self,
+                task_id:int|None = None,
+    ) -> Task:
+        task=self.task_repo.get_by_id(task_id)
+        if not task:
+            raise HTTPException(status_code=404,detail="Tarea no encontrada")
         else:
-            return self.task_repo.get_all(task_status,category_id)
+            return task
 
     def create_task(self,task_data:TaskCreate)-> Task:
-        if not self.cat_repo.get_by_id(task_data.category_id):
-            raise HTTPException(status_code=404,detail="Categoría inválida")
-        else:
-            return self.task_repo.create_task(task_data)
+        pass
