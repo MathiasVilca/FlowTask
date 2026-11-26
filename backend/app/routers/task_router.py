@@ -1,4 +1,4 @@
-from fastapi import APIRouter,Depends
+from fastapi import APIRouter,Depends,Query
 from typing import Annotated
 from sqlalchemy.orm import Session
 from app.core.database import get_db
@@ -16,7 +16,7 @@ DbSession = Annotated[Session, Depends(get_db)]
         summary="Listar tareas",
         description="Devuelve todas las tareas disponibles en la base de datos"
         )
-def get_tasks(db: DbSession,task_status:TaskStatus|None = None,category_id:int|None = None):
+def get_tasks(db: DbSession,task_status: Annotated[TaskStatus|None,Query(alias="status")] = None,category_id:int|None = None):
     service=TaskService(db)
     return service.list_tasks(task_status=task_status,category_id=category_id)
 
