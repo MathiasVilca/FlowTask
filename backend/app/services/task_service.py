@@ -18,9 +18,9 @@ class TaskService:
     ) -> list[Task]:
         return self.task_repo.get_all(task_status,category_id)
 
-    def get_task(
+    def get_task_by_id(
                 self,
-                task_id:int|None = None,
+                task_id:int,
     ) -> Task:
         task=self.task_repo.get_by_id(task_id)
         if not task:
@@ -33,3 +33,14 @@ class TaskService:
             raise HTTPException(status_code=404,detail="Categoría inválida")
         else:
             return self.task_repo.create_task(task_data)
+
+    def update_task(self,task_id:int,task_data:TaskUpdate):
+        db_task=self.get_task_by_id(task_id)
+        if not self.cat_repo.get_by_id(task_data.category_id):
+            raise HTTPException(status_code=404,detail="Categoría inválida")
+        else:
+            return self.task_repo.create_task(db_task=db_task,task_data=task_data)
+
+    def delete_task(self,task_id:int):
+            db_task=self.get_task_by_id(task_id)
+            return self.task_repo.delete_task(db_task)
