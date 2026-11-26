@@ -1,5 +1,5 @@
 from sqlalchemy import select,insert,update
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 from app.models.task import Task
 from app.core.enums import TaskStatus
 from app.schemas.task import TaskCreate,TaskUpdate
@@ -12,7 +12,7 @@ class TaskRepository:
     def get_all(self,
                 task_status:TaskStatus|None = None,
                 category_id:int|None = None)->list[Task]:
-        stmt=select(Task).order_by(Task.id.asc())
+        stmt=select(Task).options(joinedload(Task.category)).order_by(Task.id.asc())
         if task_status:
             stmt=stmt.where(Task.status==task_status)
         if category_id:
@@ -20,7 +20,8 @@ class TaskRepository:
         return self.db.scalars(stmt).all()
 
     def get_by_id(self,task_id:int) -> Task|None:
-        return self.db.get(Task,task_id)
+        stmt=select(Task).options(joinedload(Task.category)).where(Task.id==task_id)
+        return self.db.scalars(stmt)
 
     def create_task(self,task_data:TaskCreate) -> Task:
         payload=task_data.model_dump()
