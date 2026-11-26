@@ -28,7 +28,7 @@ def get_tasks(db: DbSession,task_status: Annotated[TaskStatus|None,Query(alias="
         description="Devuelve la tarea correspondiente a la id."
 
 )
-def get_tasks(db: DbSession,id :int):
+def get_tasks_by_id(db: DbSession,id :int):
     service=TaskService(db)
     return service.get_task_by_id(task_id=id)
 
