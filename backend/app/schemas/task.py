@@ -29,7 +29,7 @@ class TaskCreate(TaskBase):
 
 
 class TaskUpdate(AppBaseModel):
-    title: str|None = Field(None, min_length=1, max_length=30)
+    title: str|None = Field(None, min_length=1, max_length=150)
     description: str|None = Field(None, max_length=100)
     status: TaskStatus|None = Field(None)
     due_date: date|None = Field(None)
