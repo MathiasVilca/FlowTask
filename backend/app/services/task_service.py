@@ -22,7 +22,7 @@ class TaskService:
             return self.task_repo.get_all(task_status,category_id)
 
     def create_task(self,task_data:TaskCreate)-> Task:
-        if not self.cat_repo.get_by_id(task_data.category_id.value):
+        if not self.cat_repo.get_by_id(task_data.category_id):
             raise HTTPException(status_code=404,detail="Categoría inválida")
         else:
             return self.task_repo.create_task(task_data)
