@@ -29,5 +29,28 @@
       </span>
 
     </div>
+
+    <div class="mt-5 border-t border-gray-100 pt-3 flex items-center justify-end gap-2">
+      @if (task().status !== 'Completada'){
+        <button
+          type="button"
+          (click)="onComplete()"
+          class="cursor-pointer rounded-md bg-emerald-600 px-3 py-1.5 text-xs font-medium text-white shadow-xs transition hover:bg-emerald-700"
+        >
+          Completar
+        </button>
+      }
+      <button
+        type="button"
+        (click)="onDelete()"
+        class="ursor-pointer rounded-md border border-red-200 bg-white px-3 py-1.5 text-xs font-medium text-red-600 transition hover:border-red-300 hover:bg-red-50"
+      >
+        Eliminar
+      </button>  
+    </div>
+    
+
+    
   </div>
+  
 </article>
