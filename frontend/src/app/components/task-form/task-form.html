@@ -1,1 +1,130 @@
-<p>task-form works!</p>
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-xs">
+  <div class="w-full max-w-lg rounded-xl bg-white p-6 shadow-xl">
+    <!--Cabecera-->
+    <div class="mb-5 flex items-center justify-between border-b border-gray-100 pb-3">
+      <h3 class="text-lg font-semibold text-gray-900">
+        {{ taskToEdit() ? 'Editar Tarea' : 'Nueva Tarea' }}
+      </h3>
+      <button
+        type="button"
+        (click)="onCancel()"
+        class="cursor-pointer rounded-lg p-1 text-gray-400 transition hover:bg-gray-100 hover:text-gray-600"
+      >
+        ✕
+      </button>
+    </div>
+
+    <!--Formulario (conectado a taskForm)-->
+    <form [formGroup]="taskForm" (ngSubmit)="onSubmit()" class="space-y-4">
+      <!--Campo: Titulo (Obligatorio)-->
+      <div>
+        <label for="title" class="mb-1 block text-sm font-medium text-gray-700">
+          Título <span class="text-red-500">*</span>
+        </label>
+        <input
+          id="title"
+          type="text"
+          formControlName="title"
+          placeholder="Ej. Añadir placeholders en el formulario"
+          class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-blue-500 focus:outline-none"
+        />
+        @if (taskForm.controls.title.invalid && taskForm.controls.title.touched) {
+          <p class="mt-1 text-xs text-red-600">
+            El título es obligatorio (mínimo 3 caracteres, máximo 150 caracteres).
+          </p>
+        }
+      </div>
+
+      <!--Campo: Descripción (Opcional)-->
+      <div>
+        <label for="description" class="mb-1 block text-sm font-medium text-gray-700">
+          Descripción
+        </label>
+        <textarea
+          id="description"
+          rows="3"
+          formControlName="description"
+          placeholder="Detalles adicionales de la tarea..."
+          class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-blue-500 focus:outline-none"
+        ></textarea>
+        @if (taskForm.controls.title.invalid && taskForm.controls.title.touched) {
+          <p class="mt-1 text-xs text-red-600">
+            La descripción es de máximo 100 caracteres.
+          </p>
+        }
+      </div>
+
+      <!--Fila doble: Categoría y Estado-->
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <!-- Select de Categorías -->
+        <div>
+          <label for="category_id" class="mb-1 block text-sm font-medium text-gray-700">
+            Categoría <span class="text-red-500">*</span>
+          </label>
+          <select
+            id="category_id"
+            formControlName="category_id"
+            class="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 focus:border-blue-500 focus:outline-none"
+          >
+            <option [ngValue]="null" disabled>Seleccione una categoría</option>
+            @for (category of categories$ | async; track category.id) {
+              <option [ngValue]="category.id">{{ category.name }}</option>
+            }
+          </select>
+          @if (taskForm.controls.category_id.invalid && taskForm.controls.category_id.touched) {
+            <p class="mt-1 text-xs text-red-600">
+              Debes seleccionar una categoría.
+            </p>
+          }
+        </div>
+
+        <!--Select de Estado-->
+        <div>
+          <label for="status" class="mb-1 block text-sm font-medium text-gray-700">
+            Estado <span class="text-red-500">*</span>
+          </label>
+          <select
+            id="status"
+            formControlName="status"
+            class="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 focus:border-blue-500 focus:outline-none"
+          >
+            <option value="Pendiente">Pendiente</option>
+            <option value="En Progreso">En Progreso</option>
+            <option value="Completada">Completada</option>
+          </select>
+        </div>
+      </div>
+
+      <!--Campo: Fecha límite (Opcional)-->
+      <div>
+        <label for="due_date" class="mb-1 block text-sm font-medium text-gray-700">
+          Fecha límite
+        </label>
+        <input
+          id="due_date"
+          type="date"
+          formControlName="due_date"
+          class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-blue-500 focus:outline-none"
+        />
+      </div>
+
+      <!--Botones del pie del formulario-->
+      <div class="mt-6 flex items-center justify-end gap-3 border-t border-gray-100 pt-4">
+        <button
+          type="button"
+          (click)="onCancel()"
+          class="cursor-pointer rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50"
+        >
+          Cancelar
+        </button>
+
+        <button
+          type="submit"
+          class="cursor-pointer rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-xs transition hover:bg-blue-700"
+        >
+          {{ taskToEdit() ? 'Guardar Cambios' : 'Crear Tarea' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
