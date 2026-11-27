@@ -1,14 +1,11 @@
-import { Component, signal,OnInit,inject } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, signal, OnInit, inject } from '@angular/core';
 import { CategoryService } from './services/category';
 import { TaskService } from './services/task';
 import { Task } from './models/task.model';
-import { switchMap, tap } from 'rxjs';
-import { TaskCard } from './components/task-card/task-card';
 import { TaskList } from './components/task-list/task-list';
 
 @Component({
-  imports: [RouterOutlet,TaskCard,TaskList],
+  imports: [TaskList],
   selector: 'app-root',
   styleUrl: './app.css',
   templateUrl: './app.html',
@@ -33,4 +30,3 @@ export class App implements OnInit {
     category: { id: 1, name: 'Desarrollo', description: null },
   };
 }
-
