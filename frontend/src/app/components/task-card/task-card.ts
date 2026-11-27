@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input,output } from '@angular/core';
 import { Task,TaskStatus } from '../../models/task.model';
 
 @Component({
@@ -9,7 +9,17 @@ import { Task,TaskStatus } from '../../models/task.model';
 })
 export class TaskCard {
   task= input.required<Task>()
+  completeTask= output<number>();
+  deleteTask= output<number>();
   
+  onComplete():void{
+    this.completeTask.emit(this.task().id);
+  }
+  
+  onDelete():void{
+    this.deleteTask.emit(this.task().id);
+  }
+
   getStatusClasses(status: TaskStatus): string {
     const base = "rounded-full px-2.5 py-0.5 text-xs whitespace-nowrap"
     const colors: Record<TaskStatus, string> = {
