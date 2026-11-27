@@ -24,7 +24,7 @@ export class TaskForm {
 
   readonly taskForm= this.fb.nonNullable.group({
     title: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(150), Validators.pattern(/\S/)]],
-    description: [''],
+    description: ['',[Validators.maxLength(100)]],
     status: ['Pendiente' as TaskStatus, [Validators.required]],
     due_date: [''],
     category_id: [null as number | null, [Validators.required]], 
