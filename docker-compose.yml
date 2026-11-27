@@ -1,0 +1,25 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: flowtask-backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - sqlite_data:/app/data
+    environment:
+      - DATABASE_URL=sqlite:///./data/task_manager.db
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: flowtask-frontend
+    ports:
+      - "4200:80"
+    depends_on:
+      - backend
+
+volumes:
+  sqlite_data:
