@@ -24,7 +24,7 @@ export class TaskList implements OnInit {
     this.taskService.loadTasks().subscribe();
   }
 
-  onStatusFilterChange(event:Event){
+  onStatusFilterChange(event:Event): void{
     const selectedValue = (event.target as HTMLSelectElement).value;
     this.selectedStatus = selectedValue ? (selectedValue as TaskStatus) : undefined;
     this.applyFilters();
@@ -34,6 +34,20 @@ export class TaskList implements OnInit {
     const selectedValue = (event.target as HTMLSelectElement).value;
     this.selectedCategoryId = selectedValue ? Number(selectedValue) : undefined;
     this.applyFilters();
+  }
+
+  handleCompleteTask(id:number):void{
+    this.taskService.updateTask(id,{'status':'Completada'}).subscribe({
+      next: () => this.applyFilters(),
+    });
+  }
+
+  handleDeleteTask(id:number):void{
+    const confirmed = window.confirm("Estas seguro que quieres eliminar esta tarea?");
+    if (!confirmed) return;
+    this.taskService.deleteTask(id).subscribe({
+      next: () => this.applyFilters(),
+    });
   }
 
   private applyFilters(): void {
