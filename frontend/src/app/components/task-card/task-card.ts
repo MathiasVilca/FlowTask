@@ -11,6 +11,7 @@ export class TaskCard {
   task= input.required<Task>()
   completeTask= output<number>();
   deleteTask= output<number>();
+  editTask= output<Task>();
   
   onComplete():void{
     this.completeTask.emit(this.task().id);
@@ -18,6 +19,10 @@ export class TaskCard {
   
   onDelete():void{
     this.deleteTask.emit(this.task().id);
+  }
+
+  onEdit():void {
+    this.editTask.emit(this.task());
   }
 
   getStatusClasses(status: TaskStatus): string {
