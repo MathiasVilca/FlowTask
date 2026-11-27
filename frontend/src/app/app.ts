@@ -5,9 +5,10 @@ import { TaskService } from './services/task';
 import { Task } from './models/task.model';
 import { switchMap, tap } from 'rxjs';
 import { TaskCard } from './components/task-card/task-card';
+import { TaskList } from './components/task-list/task-list';
 
 @Component({
-  imports: [RouterOutlet,TaskCard],
+  imports: [RouterOutlet,TaskCard,TaskList],
   selector: 'app-root',
   styleUrl: './app.css',
   templateUrl: './app.html',
