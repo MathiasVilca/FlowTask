@@ -16,6 +16,14 @@
         <option [value]="category.id">{{ category.name }}</option>
       }
     </select>
+
+    <button
+      type="button"
+      (click)="openCreateForm()"
+      class="cursor-pointer rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-xs transition hover:bg-blue-700"
+    >
+      + Nueva Tarea
+    </button>
   </div>
 </div>
 
@@ -26,13 +34,22 @@
     </p>
   } @else {
     <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-      @for (task of tasks; track task.id) {
+      @for (task of tasks; track task.id) { <!--Track se encarga de rastrear el id-->
         <app-task-card 
           [task]="task"
           (completeTask)="handleCompleteTask($event)"
+          (editTask)="openEditForm($event)"
           (deleteTask)="handleDeleteTask($event)" 
         />
       }
     </div>
   }
+}
+
+@if (isFormOpen) {
+  <app-task-form
+    [taskToEdit]="selectedTaskToEdit"
+    (saved)="handleTaskSaved()"
+    (cancelled)="closeForm()"
+  />
 }

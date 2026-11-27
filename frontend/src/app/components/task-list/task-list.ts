@@ -1,12 +1,13 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { TaskService } from '../../services/task';
 import { CategoryService } from '../../services/category';
-import { TaskStatus } from '../../models/task.model';
+import { Task,TaskStatus } from '../../models/task.model';
 import { TaskCard } from '../task-card/task-card';
+import { TaskForm } from '../task-form/task-form';
 import { AsyncPipe } from '@angular/common';
 
 @Component({
-  imports: [AsyncPipe, TaskCard],
+  imports: [AsyncPipe, TaskCard,TaskForm],
   standalone: true,
   selector: 'app-task-list',
   styleUrl: './task-list.css',
@@ -19,9 +20,31 @@ export class TaskList implements OnInit {
   readonly categories$ = this.categoryService.getCategories();
   selectedStatus?: TaskStatus;
   selectedCategoryId?: number;
+  isFormOpen = false;
+  selectedTaskToEdit: Task | null = null;
 
   ngOnInit(): void {
     this.taskService.loadTasks().subscribe();
+  }
+
+  openCreateForm():void{
+    this.selectedTaskToEdit= null;
+    this.isFormOpen= true;
+  }
+
+  openEditForm(task:Task):void{
+    this.selectedTaskToEdit = task;
+    this.isFormOpen= true;
+  }
+
+  closeForm():void{
+    this.selectedTaskToEdit= null;
+    this.isFormOpen= false;
+  }
+
+  handleTaskSaved():void{
+    this.closeForm();
+    this.applyFilters();
   }
 
   onStatusFilterChange(event:Event): void{
