@@ -14,8 +14,8 @@ import { TaskList } from './components/task-list/task-list';
   templateUrl: './app.html',
 })
 export class App implements OnInit {
-  private categoryService = inject(CategoryService);
-  private taskService = inject(TaskService);
+  private readonly categoryService = inject(CategoryService);
+  private readonly taskService = inject(TaskService);
   protected readonly title = signal('frontend');
 
   ngOnInit(): void {

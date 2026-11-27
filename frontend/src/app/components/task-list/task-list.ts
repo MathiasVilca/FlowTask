@@ -13,7 +13,7 @@ import { AsyncPipe } from '@angular/common';
   templateUrl: './task-list.html',
 })
 export class TaskList implements OnInit {
-  private taskService = inject(TaskService);
+  private readonly taskService = inject(TaskService);
   private readonly categoryService = inject(CategoryService);
   readonly tasks$ = this.taskService.tasks$;
   readonly categories$ = this.categoryService.getCategories();
