@@ -1,1 +1,34 @@
-<p>task-list works!</p>
+
+<div class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+  <h2 class="text-xl font-semibold text-gray-900">Mis Tareas</h2>
+
+  <div class="flex flex-wrap gap-3">
+    <select (change)="onStatusFilterChange($event)" class="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-700">
+      <option value="">Todos los estados</option>
+      <option value="Pendiente">Pendiente</option>
+      <option value="En Progreso">En Progreso</option>
+      <option value="Completada">Completada</option>
+    </select>
+
+    <select (change)="onCategoryFilterChange($event)" class="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-700">
+      <option value="">Todas las categorías</option>
+      @for (category of categories$ | async; track category.id) {
+        <option [value]="category.id">{{ category.name }}</option>
+      }
+    </select>
+  </div>
+</div>
+
+@if (tasks$ | async; as tasks) {
+  @if (tasks.length === 0) {
+    <p class="rounded-lg border border-dashed border-gray-300 p-8 text-center text-sm text-gray-500">
+      No hay tareas por mostrar.
+    </p>
+  } @else {
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+      @for (task of tasks; track task.id) {
+        <app-task-card [task]="task" />
+      }
+    </div>
+  }
+}
